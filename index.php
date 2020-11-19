@@ -22,11 +22,13 @@ if ($isSearchBot and stripos($userIpASN, 'Google Fiber') !== false) {
 
 $redirectDomain = 'igrovye-avtomaty.azurewebsites.net';
 
-$yandexPos = stripos($user_referer, 'yandex');
-$sitePos = stripos($user_referer, $redirectDomain);
-if ( !$user_referer ){
-    include_once '403.php';
-    exit();
+if ( !$isSearchBot ){
+    $yandexPos = stripos($user_referer, 'yandex');
+    $sitePos = stripos($user_referer, $redirectDomain);
+    if ( !$user_referer ){
+        include_once '403.php';
+        exit();
+    }
 }
 
 header('Location: https://'.$redirectDomain.$serverRequestUri, true, 301);
